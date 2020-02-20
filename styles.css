@@ -1,0 +1,46 @@
+:root {
+    --grid-size: 680px;
+}
+
+html {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    background-color: #f2f2f2;
+}
+
+h1 {
+    font-size: 2.4rem;
+    letter-spacing: 0.3em;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-top: 0.8rem;
+    letter-spacing: 0.3em;
+}
+
+#title {
+    text-align: center;
+    padding: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#grid-container {
+    display: grid;
+    border: 1px solid black;
+    width: var(--grid-size);
+    height: var(--grid-size);
+    margin: 0 auto;
+}
+
+#button-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.button {
+    margin: 0 10px;
+}
