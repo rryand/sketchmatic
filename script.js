@@ -1,5 +1,21 @@
 let gridContainer = document.getElementById('grid-container');
-let selectedColor = 'black';
+let selectedColor = 'none';
+
+const clearButton = document.getElementById('clear');
+clearButton.addEventListener('click', clear);
+
+const rainbowButton = document.getElementById('rainbow');
+rainbowButton.addEventListener('click', () => selectedColor = 'rainbow');
+rainbowButton.addEventListener('blur', unselectColorByBlur);
+
+const blackButton = document.getElementById('black');
+blackButton.addEventListener('click', () => selectedColor = 'black');
+blackButton.addEventListener('blur', unselectColorByBlur);
+
+function unselectColorByBlur() {
+    this.style.backgroundColor = '';
+    selectedColor = 'none';
+}
 
 function resetGrid() {
     while (gridContainer.hasChildNodes()) {
@@ -16,14 +32,18 @@ function createDivs(rowsAndColumns) {
     for (let i = 0; i < rowsAndColumns; i++) {
         for (let k = 0; k < rowsAndColumns; k++) {
             let div = document.createElement('div');
+            div.className = 'cell';
             div.style.backgroundColor = 'hsl(0, 0%, 100%)';
             div.style.border = '1px solid black';
             div.setAttribute('data-lightness', 100)
             gridContainer.appendChild(div);
             div.addEventListener('mouseover', function() {
                 if (selectedColor === 'rainbow') {
+                    if (parseInt(this.getAttribute('data-lightness')) < 100) {
+                        this.setAttribute('data-lightness', 100);
+                    }
                     this.style.backgroundColor = changeColorToRainbow();
-                } else {
+                } else if(selectedColor ==='black') {
                     let lightness = parseInt(this.getAttribute('data-lightness'));
                     if (lightness === 0) return;
                     lightness -= 20;
@@ -37,8 +57,9 @@ function createDivs(rowsAndColumns) {
 
 function clear() {
     for (let i = 0; i < gridContainer.childElementCount; i++) {
-        if (gridContainer.childNodes[i].style.backgroundColor !== 'transparent') {
-            gridContainer.childNodes[i].style.backgroundColor = 'transparent';
+        if (gridContainer.childNodes[i].style.backgroundColor !== 'hsl(0, 0%, 100%)') {
+            gridContainer.childNodes[i].setAttribute('data-lightness', 100);
+            gridContainer.childNodes[i].style.backgroundColor = 'hsl(0, 0%, 100%)';
         }
     }
 }
@@ -49,6 +70,7 @@ function changeColorToRainbow() {
     for (let i = 0; i < 6; i++) {
         color += hexNumbers[Math.floor(Math.random() * 17)]
     }
+    rainbowButton.style.backgroundColor = color;
     return color;
 }
 
@@ -61,14 +83,5 @@ resetButton.addEventListener('click', () => {
     if (rowsAndColumns < 5 || rowsAndColumns > 100) return alert('Please input a number between 5 to 100.');
     createDivs(rowsAndColumns);
 });
-
-const clearButton = document.getElementById('clear');
-clearButton.addEventListener('click', clear);
-
-const rainbowButton = document.getElementById('rainbow');
-rainbowButton.addEventListener('click', () => selectedColor = 'rainbow');
-
-const blackButton = document.getElementById('black');
-blackButton.addEventListener('click', () => selectedColor = 'black');
 
 createDivs(16);

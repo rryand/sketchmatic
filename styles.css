@@ -1,5 +1,7 @@
 :root {
     --grid-size: 680px;
+    --black-color: #0d0d0d;
+    --bg-color: #f2f2f2;
 }
 
 html {
@@ -7,7 +9,7 @@ html {
 }
 
 body {
-    background-color: #f2f2f2;
+    background-color: var(--bg-color);
 }
 
 h1 {
@@ -29,7 +31,7 @@ p {
 
 #grid-container {
     display: grid;
-    border: 1px solid black;
+    border: 1px solid var(--black-color);
     width: var(--grid-size);
     height: var(--grid-size);
     margin: 0 auto;
@@ -38,9 +40,42 @@ p {
 #button-container {
     display: flex;
     justify-content: center;
-    margin: 20px auto;
+    margin: 25px auto;
 }
 
 .button {
     margin: 0 10px;
+    height: 2rem;
+    width: 100px;
+    border: 1px solid var(--black-color);
+    border-radius: 5px;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.button:hover, #black:focus, #rainbow:focus {
+    background-color: var(--black-color);
+    color: var(--bg-color);
+}
+
+.button:active {
+    box-shadow: 0 0 0 2px var(--black-color);
+    animation: anim-shadow 0.1s forwards;
+}
+
+@keyframes anim-shadow {
+    100% {
+        box-shadow: 0 0 20px 10px #a6a6a6;
+    }
+}
+
+.cell {
+    transition: background-color 0.15s linear;
+}
+
+.active {
+    background-color: var(--black-color);
+    color: var(--bg-color);
 }
