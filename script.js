@@ -68,7 +68,7 @@ function changeColorToRainbow() {
     let hexNumbers = '0123456789ABCDEF',
         color = '#';
     for (let i = 0; i < 6; i++) {
-        color += hexNumbers[Math.floor(Math.random() * 17)]
+        color += hexNumbers[Math.floor(Math.random() * 16)]
     }
     rainbowButton.style.backgroundColor = color;
     return color;
